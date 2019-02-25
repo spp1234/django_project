@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/loginstyle.css' %}">
+    <style type="text/css">
+            #logo{
+                max-height: 42px;
+                margin-right: 8px;
+                display: inline-block;
+                margin-top: -15px;
+            }
+    </style>
+    
+    <!--===============================================================================================-->
+</head>
+
+<body>
+    
+    <div class="limiter">
+        <div class="container-login100" style="background-image: url('https://neilpatel.com/wp-content/uploads/2017/08/blog.jpg');">
+            <div class="wrap-login100">
+                {% if form.errors %}
+                    <h5 style="color: black">Your username and password didn't match. Please try again.</h5>
+                {% endif %}
+                <form class="login100-form validate-form" method="post">
+                    {% csrf_token %}
+                    
+                    <br>
+                    <span class="login100-form-title p-b-34 p-t-27">
+                        Log in
+                    </span>
+                    <br>
+                     <input type="hidden" name="next" value="{{ next }}" />
+
+                      {% for field in form %}
+                      <div class="wrap-input100 validate-input" >
+                         <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                        <p class="input100 ;focus-input100">{{ field.label_tag }}</p>
+                        <p class="input100 ;focus-input100" >{{ field }}</p>
+                        {% for error in field.errors %}
+                          <b><p style="color: red">{{ error }}</p></b>
+                        {% endfor %}
+                        {% if field.help_text %}
+                          <p><small style="color: yellow">{{ field.help_text }}</small></p>
+                        {% endif %}
+                        </div>  
+                        {% endfor %}
+                        <center><button class="button" type="submit">Log in</button></center>
+                        
+                        <br></br>
+                <div class="border-top pt-3">
+            
+            <small >
+                  
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <a style="color: black" href="{% url 'social:begin' 'google-oauth2' %}"><img src="https://cdn4.iconfinder.com/data/icons/new-google-logo-2015/400/new-google-favicon-512.png" id="logo" alt=""></a> 
+                  
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <a style="color: black" href="{% url 'social:begin' 'github' %}"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" class="img-responsive" id="logo" alt=""></a><br>
+                  
+                  <a style="color: white" href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a style="color: white" href="{% url 'social:begin' 'github' %}">Login with Github</a>
+                  <br><br>
+                    <center><a style="color: black" href="{% url 'password_reset' %}">Forgot Password?</a></center>
+               <br>
+                <center>Need An Account? <a style="color: black" class="ml-2" href="{% url 'register' %}">Sign Up Now</a></center>
+            </small>
+                
+                </div>
+                </form>
+                </div>
+                </div>
+                </div>
+</body>
+</html>
